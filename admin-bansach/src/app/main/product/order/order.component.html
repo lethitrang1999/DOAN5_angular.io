@@ -1,0 +1,142 @@
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+      <li>
+        <i class="ace-icon fa fa-home home-icon"></i>
+        <a href="#">Trang chủ</a>
+      </li>
+      <li class="active">Quản lý đơn hàng</li>
+    </ul><!-- /.breadcrumb -->
+  </div>
+  <div class="page-content">
+    <div class="row">
+
+      <div class="col-xs-12">
+        <!-- PAGE CONTENT BEGINS -->
+        <div class="form-group">
+            <button (click)="createModal()" class="btn btn-sm btn-primary">Thêm Hoá Đơn</button>
+        </div>
+        <br/>
+        <p-table selectionMode="single" [value]="hoa_dons" styleClass="p-datatable-gridlines">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 70px; text-align: center;">STT</th>
+              <th style="width: 10%; text-align: left;">Họ Tên</th>
+              <th style="width: 170px; text-align: center;">Địa Chỉ</th>
+              <th style="width: 230px; text-align: left;">SDT</th>
+              <th style="width: 130px; text-align: left;">Email</th>
+              <th style="width: 120px; text-align: left;">Tác vụ</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-hoa_don  let-i="rowIndex">
+            <tr>
+              <td style="width: 70px; text-align: center;">{{ i + 1 }}</td>
+              <td>{{ hoa_don.ho_ten }}</td>
+              <td>{{ hoa_don.dia_chi }}</td>
+              <td>{{ hoa_don.sdt }}</td>
+              <td>{{ hoa_don.email }}</td>
+              <td class="action-col" >
+                <div class="btn-group">
+                  <button title="" class="btn btn-xs btn-white btn-default"  (click)="openUpdateModal(hoa_don)">
+                    <i class="ace-icon fa fa-edit"></i>
+                  </button>
+                  <button title="" class="btn btn-xs btn-white btn-default" (click)="onDelete(hoa_don)">
+                    <i class="ace-icon fa fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+        <!-- PAGE CONTENT ENDS -->
+      </div>
+      <div class="col-xs-12" style="text-align: right;">
+        <ngb-pagination [collectionSize]="totalRecords" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+      </div>
+      <!-- /.col -->
+    </div>
+  </div>
+  <!-- /.page-content -->
+   <div *ngIf="showUpdateModal" id="createProductModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg full-height-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4  *ngIf="isCreate" class="modal-title">Nhập thông tin</h4>
+          <h4 *ngIf="!isCreate" class="modal-title">Sửa thông tin hoá đơn</h4>
+        </div>
+        <form *ngIf="doneSetupForm" [formGroup]="formdata"  (ngSubmit)="onSubmit(formdata.value)" class="form-horizontal utehy-form">
+          <div class="modal-body no-padding">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                <label class="col-sm-4 control-label no-padding-right">ID HOÁ ĐƠN(<span style="color: red;">*</span>)</label>
+                <div class="col-sm-8">
+                  <input type="text" placeholder="ID hoá đơn" formControlName="ma_hoa_don"/>
+                  <div *ngIf="submitted && f.ma_hoa_don.errors" class="invalid-feedback">
+                    <div *ngIf="f.ma_hoa_don.errors.required">ID HOÁ ĐƠN</div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label no-padding-right"> Họ Tên(<span style="color: red;">*</span>)</label>
+                  <div class="col-sm-8">
+                    <input type="text" placeholder="Họ Tên" formControlName="ho_ten"/>
+                    <div *ngIf="submitted && f.ho_ten.errors" class="invalid-feedback">
+                      <div *ngIf="f.ho_ten.errors.required">Họ Tên</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label no-padding-right">Địa Chỉ(<span style="color: red;">*</span>)</label>
+                  <div class="col-sm-8">
+                    <input type="number" placeholder="Địa Chỉ" formControlName="dia_chi"/>
+                    <div *ngIf="submitted && f.dia_chi.errors" class="invalid-feedback">
+                      <div *ngIf="f.dia_chi.errors.required">Địa Chỉ</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label no-padding-right"> SDT</label>
+                  <div class="col-sm-8">
+                    <input type="text" formControlName="SDT" placeholder="SDT" />
+                    <div *ngIf="submitted && f.SDT.errors" class="invalid-feedback">
+                      <div *ngIf="f.SDT.errors.required">SDT</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label no-padding-right"> EMAIL</label>
+                  <div class="col-sm-8">
+                    <input type="text" formControlName="email" placeholder="EMAIL" />
+                    <div *ngIf="submitted && f.EMAIL.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">EMAIL</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-sm" (click)="Reset()">
+              <i class="fa fa-bell"></i> Làm mới
+            </button>
+            <button type="submit" class="btn btn-success btn-sm btn-submit">
+              <i class="fa fa-save"></i> Đồng ý
+            </button>
+            <button type="button" class="btn btn-default btn-sm" (click)="closeModal()">
+              <i class="fa fa-times"></i> Đóng lại
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> 

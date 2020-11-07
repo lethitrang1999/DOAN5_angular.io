@@ -1,0 +1,449 @@
+<!--top tags area start-->
+
+<!--top tags area end-->
+<div class="top_tags_area">
+    <div class="container">
+        <div class="row" style=" height: 400px;">
+            <div class="col-3" style="background-color: #c1a89a; height: 436px;">
+                <div class="main_menu menu_position text-left">
+                    <nav>
+                        <ul>
+                            <li class="abcd" style="color:#fff;border:1px soild #fff;height:50px;line-height: 50px;"><i class="fa fa-address-card" aria-hidden="true"></i>Danh Mục Sản Phẩm</li>
+                            <ng-container *ngFor="let mn of list_menu">
+                                
+                                <li *ngIf="mn.children" style="width:300px"><a class="active" href="">{{mn.item_group_name}}<i class="fa fa-angle-down"></i></a>
+                                    <ul class="sub_menu">
+                                        <ng-container *ngFor="let m of mn.children">
+                                            <li><a [routerLink]="['/product/list',m.item_group_id]">{{m.item_group_name}}</a></li>
+                                        </ng-container>
+                                    </ul>
+                                </li>
+
+                                <li *ngIf="!mn.children"><a href="">{{mn.item_group_name}}</a></li>
+                            </ng-container> 
+
+                           
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-6" style="height:400px;">
+                <section class=" mb-80">
+                   
+                        
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <img style="height: 436px;width: 677px;" src="assets/img/slider/Anh1.jpg">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        <!-- <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/slider/Anh2.jpg">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="slider_content center">
+                                            <h1>Accessories <span>all kinds of tractor trailer</span></h1>
+                                            <p>Exclusive Offer -30% Off This Week</p>
+                                            <a class="button" href="shop.html">shopping now <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_slider d-flex align-items-center" data-bgimg="assets/img/slider/Anh3.jpg">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="slider_content">
+                                            <h1>High-end <span>New car interior</span> </h1>
+                                            <p>Exclusive Offer -20% Off This Week</p>
+                                            <a class="button" href="shop.html">shopping now <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                </section>
+                <!--slider area end-->
+            </div>
+            
+                <div class="col-lg-3 col-md-3">
+                    <figure class="abc1" style="border:1px soild #222222;">
+                        <div class="">
+                            <a href="shop.html"><img src="assets/img/product/123.jpg" alt=""></a>
+                        </div>
+                    </figure>
+                    <figure class="abc1" style="border:1px soild #222222;">
+                        <div class="">
+                            <a href="shop.html"><img src="assets/img/product/1234.jpg" alt=""></a>
+                        </div>
+                    </figure>
+                </div>
+                
+        </div>
+    </div>
+</div>
+<!--slider area start-->
+
+
+<!--banner area start-->
+<div class="banner_area mb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="welcome_title">
+                    <h3>Sản phẩm mới</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+
+            <div class="col-lg-3 col-md-3">
+                <figure class="single_banner">
+                    <div class="banner_thumb">
+                        <a href="shop.html"><img src="assets/img/bg/000037.jpg" alt=""></a>
+                    </div>
+                </figure>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <figure class="single_banner">
+                    <div class="banner_thumb">
+                        <a href="shop.html"><img src="assets/img/bg/000038.jpg" alt=""></a>
+                    </div>
+                </figure>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <figure class="single_banner">
+                    <div class="banner_thumb">
+                        <a href="shop.html"><img src="assets/img/bg/000038.jpg" alt=""></a>
+                    </div>
+                </figure>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <figure class="single_banner">
+                    <div class="banner_thumb">
+                        <a href="shop.html"><img src="assets/img/bg/000008.jpg" alt=""></a>
+                    </div>
+                </figure>
+            </div>
+        </div>
+    </div>
+</div>
+<!--banner area end-->
+
+<!--Categories product area start-->
+<div class="categories_product_area mb-80" >
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="categories_product_inner categories_column7 owl-carousel" >
+                    <div class="single_categories_product" *ngFor="let it of list_item">
+                        <div class="categories_product_thumb">
+                            <a class="primary_img" [routerLink]="['/product/chitiet',it.item_id]"><img img style="width:137px;" src="{{it.item_image}}" alt=""></a>
+                        </div>
+                        <div class="categories_product_content">
+                            <h4 class="product_name"><a [routerLink]="['/product/chitiet',it.item_id]">{{it.item_name}}</a></h4>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Categories product area end-->
+
+<!--home section bg area start-->
+<div class="home_section_bg">
+    <!--product area start-->
+    <div class="product_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                   
+                    <div class="product_tab_btn">
+                        <ul class="nav" role="tablist">
+                            <li>
+                                <a class="active" data-toggle="tab" href="#Sellers" role="tab" aria-controls="Sellers" aria-selected="true">
+                                        Sản phẩm bán chạy
+                                    </a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="Sellers" role="tabpanel">
+                    <div class="row">
+                        <div class="product_carousel product_column5 owl-carousel">
+
+
+
+
+                            <ng-container *ngFor="let it of list_item">
+
+                                <div class="col-lg-3" style="height: 300px;">
+                                    <div class="product_items">
+                                        <article class="single_product">
+                                            <figure>
+                                                <div class="product_thumb">
+                                                    <a class="primary_img" [routerLink]="['/product/chitiet',it.item_id]"><img img style="width:137px;" src="{{it.item_image}}" alt=""></a>
+                                                    <div class="label_product">
+                                                        <span class="label_sale">-56%</span>
+                                                    </div>
+                                                    <div class="quick_button">
+                                                        <a href="#" data-toggle="modal" data-target="#modal_box" title="quick view"><i class="icon-eye"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="product_content">
+                                                    <div class="product_content_inner">
+                                                        <p class="manufacture_product"><a href="#">New</a></p>
+                                                        <h4 class="product_name"><a [routerLink]="['/product/chitiet',it.item_id]">{{it.item_name}}</a></h4>
+                                                        <div class="product_rating">
+                                                            <ul>
+                                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="price_box">
+                                                            <span class="current_price">{{ it.item_price | number}} VNĐ</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="action_links">
+                                                        <ul>
+                                                            <li class="add_to_cart"><a (click)="addToCart(it)" title="Thêm Vào Giỏ">Thêm Vào Giỏ</a></li>
+                                                           
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </figure>
+                                        </article>
+                                      
+                                    </div>
+                                </div>
+
+                            </ng-container>
+
+
+
+
+
+                           
+
+
+                          
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+
+        </div>
+    </div>
+    <!--product area end-->
+
+    <!--banner area start-->
+   
+    <!--banner area end-->
+
+    <!--product area start-->
+
+    <!--blog area start-->
+    <!--product area start-->
+    <div class="product_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section_title title_style2">
+                       <div class="title_content">
+                           <h2><span>Sản phẩm Khuyến mại</span></h2> 
+                        </div>                 
+                    </div>
+                </div>
+            </div> 
+            <div class="container">
+                <div class="col-xs-12 col-md-12 bootstrap snippets bootdeys">
+                    <!-- product -->
+                    <div class="product-content product-wrap clearfix">
+                <div class="product_container">
+                   <div class="row">
+                    <ng-container *ngFor="let it of list_km">
+                        <div class="col-lg-6" style="height: 250px;">
+                        <div class="col-md-5">
+                            <div class="product-image"> 
+                                <a class="img-responsive" [routerLink]="['/product/chitiet',it.item_id]"><img src="{{it.item_image}}" alt=""></a>
+                                
+                                <span class="tag2 hot">
+                                    HOT
+                                </span> 
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12" style="float: right;top: -210px;">
+                        <div class="product-deatil">
+                               
+                                    <h5 class="name"><a [routerLink]="['/product/chitiet',it.item_id]">{{it.item_name}}</a></h5>
+                               
+                                <p class="price-container">
+                                    <span>{{ it.item_price | number}} VNĐ</span>
+                                </p>
+                                <span class="tag1"></span> 
+                        </div>
+                        
+                           
+                       
+                        <div class="product-info smart-form">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6"> 
+                                    <li style="list-style: none;" class="add_to_cart"><a (click)="addToCart(it)" title="Thêm Vào Giỏ">Thêm Vào Giỏ</a></li>
+                                  
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <div class="rating">
+                                        <label for="stars-rating-5"><i class="fa fa-star"></i></label>
+                                        <label for="stars-rating-4"><i class="fa fa-star"></i></label>
+                                        <label for="stars-rating-3"><i class="fa fa-star text-primary"></i></label>
+                                        <label for="stars-rating-2"><i class="fa fa-star text-primary"></i></label>
+                                        <label for="stars-rating-1"><i class="fa fa-star text-primary"></i></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                </ng-container>
+    
+                  
+                   </div>
+                </div>
+                    </div>
+                </div>
+           
+       
+        <!--product area end-->
+    </div>
+        </div>
+    </div>
+    <!--product area end-->
+</div>
+<!--home section bg area end-->
+
+<!--brand area start-->
+<div class="brand_area">
+    <div class="container">
+        <div class="col-12">
+            <div class="brand_container owl-carousel ">
+                <div class="brand_list">
+                    <div class="single_brand">
+                        <a href="#"><img src="assets/img/brand/brand1.jpg" alt=""></a>
+                    </div>
+                    
+                </div>
+                <div class="brand_list">
+                    <div class="single_brand">
+                        <a href="#"><img src="assets/img/brand/brand3.jpg" alt=""></a>
+                    </div>
+                    
+                </div>
+                <div class="brand_list">
+                    <div class="single_brand">
+                        <a href="#"><img src="assets/img/brand/brand5.jpg" alt=""></a>
+                    </div>
+                   
+                </div>
+              
+                <div class="brand_list">
+                    <div class="single_brand">
+                        <a href="#"><img src="assets/img/brand/brand1.jpg" alt=""></a>
+                    </div>
+                   
+                </div>
+                <div class="brand_list">
+                    <div class="single_brand">
+                        <a href="#"><img src="assets/img/brand/brand3.jpg" alt=""></a>
+                    </div>
+                    
+                </div>
+                <div class="brand_list">
+                    <div class="single_brand">
+                        <a href="#"><img src="assets/img/brand/brand5.jpg" alt=""></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--brand area end-->
+
+<!--newsletter area start-->
+<div class="newsletter_area">
+    <div class="container">
+        <div class="newsletter_inner">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="newsletter_container">
+                        <h3>Follow Us</h3>
+                        <p>We make consolidating, marketing and tracking your social media website easy.</p>
+                        <div class="footer_social">
+                            <ul>
+                                <li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+                                <li><a class="twitter" href="#"><i class="icon-twitter2"></i></a></li>
+                                <li><a class="rss" href="#"><i class="icon-rss"></i></a></li>
+                                <li><a class="youtube" href="#"><i class="icon-youtube"></i></a></li>
+                                <li><a class="google" href="#"><i class="icon-google"></i></a></li>
+                                <li><a class="instagram2" href="#"><i class="icon-instagram2"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="newsletter_container">
+                        <h3>Newsletter Now</h3>
+                        <p>Join 60.000vnd0+ subscribers and get a new discount coupon on every Wednesday.</p>
+                        <div class="subscribe_form">
+                            <form [formGroup]="">
+                                <input id="mc-email" type="email" autocomplete="off" placeholder="Enter you email address here..." />
+                                <button id="mc-submit">Subscribe</button>
+                            </form>
+                            <!-- mailchimp-alerts Start -->
+                            <div class="mailchimp-alerts text-centre">
+                                <div class="mailchimp-submitting"></div>
+                                <!-- mailchimp-submitting end -->
+                                <div class="mailchimp-success"></div>
+                                <!-- mailchimp-success end -->
+                                <div class="mailchimp-error"></div>
+                                <!-- mailchimp-error end -->
+                            </div>
+                            <!-- mailchimp-alerts end -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-7">
+                    <div class="newsletter_container col_3">
+                        <h3>GET THE APP</h3>
+                        <p>Mazlay App is now available on Google Play & App Store. Get it now.</p>
+                        <div class="app_img">
+                            <ul>
+                                <li>
+                                    <a href="#"><img src="assets/img/icon/icon-app.jpg" alt=""></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="assets/img/icon/icon1-app.jpg" alt=""></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--newsletter area end-->
