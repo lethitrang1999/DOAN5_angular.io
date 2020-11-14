@@ -1,8 +1,9 @@
 
 import FilterizrOptions from './FilterizrOptions/FilterizrOptions';
 import FilterItems from './FilterItems';
-import RawOptionsCallbacks from './types/interfaces/RawOptionsCallbacks';
-import RawOptionsCallbacks from './types/interfaces';
+// import RawOptionsCallbacks from './types/interfaces/RawOptionsCallbacks';
+//  import RawOptionsCallbacks from './types/interfaces';
+import { RawOptionsCallbacks } from "C:/Users/Trung/source/repos/DOAN5_angular.io/admin-bansach/src/assets/js/filterizr/types/interfaces/index"
 /**
  * Resembles the grid of items within Filterizr.
  */
@@ -29,8 +30,8 @@ export default class FilterContainer {
      */
     insertItem(node: Element, options: FilterizrOptions): void;
     calculateColumns(): number;
-    updateDimensions(): void;
-    updateHeight(newHeight: number): void;
+    // updateDimensions(): void;
+    // updateHeight(newHeight: number): void;
     bindEvents(callbacks: RawOptionsCallbacks): void;
     unbindEvents(callbacks: RawOptionsCallbacks): void;
     trigger(eventType: string): void;

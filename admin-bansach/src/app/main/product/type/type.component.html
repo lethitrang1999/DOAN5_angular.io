@@ -13,55 +13,60 @@
       <div class="col-xs-12">
         <!-- PAGE CONTENT BEGINS -->
         <div class="form-group">
-          <button (click)="createModal()" class="btn btn-sm btn-primary">Thêm sản phẩm</button>
+          <button (click)="createModal()" class="btn btn-sm btn-primary">Thêm danh mục sách</button>
       </div>
       <br/>
 
         <p-table selectionMode="single" [value]="product_groups" styleClass="p-datatable-gridlines">
           <ng-template pTemplate="header">
             <tr>
-              <th style="width: 15%; text-align: left;">Mã Danh Mục Cấp</th>
+              <th style="width: 35px; text-align: left;">STT</th>
+              <th style="width: 15%; text-align: left;">Mã Nhóm danh mục</th>
               <th style="width: 20%; text-align: left;">Mã Danh Mục</th>
-              <th style="text-align: left;">Tên Danh Mục</th>
-
-              <th style="width: 120px; text-align: left;">Tác vụ</th>
+              <th style="width: 20%; text-align: left;">Tên Danh Mục</th>
+              <th style="width: 60px; text-align: left;">Tác vụ</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-item_group  let-i="rowIndex">
+          
+          <ng-template #recursiveTable let-item_group pTemplate="body"  let-i="rowIndex" >
             <tr>
               <td>{{ i + 1 }}</td>
-              <td>{{ item_group.item_group_id}}</td>
+              <td>{{ item_group.parent_item_group_id || '-' }}</td>
+              <td>{{ item_group.item_group_id }}</td>
               <td>{{ item_group.item_group_name }}</td>
-
               <td class="action-col" >
                 <div class="btn-group">
-                  <button title="" class="btn btn-xs btn-white btn-default"  (click)="openUpdateModal(item)">
+                  <button title="" class="btn btn-xs btn-white btn-default"  (click)="openUpdateModal(item_group)">
                     <i class="ace-icon fa fa-edit"></i>
                   </button>
-                  <button title="" class="btn btn-xs btn-white btn-default" (click)="onDelete(item)">
+                  <button title="" class="btn btn-xs btn-white btn-default" (click)="onDelete(item_group)">
                     <i class="ace-icon fa fa-trash"></i>
                   </button>
                 </div>
               </td>
             </tr>
-            <!-- <ng-template *ngIf="item_group.children" pTemplate="body" let-item_children  let-i_children="rowIndex">
-              <tr >
-                <td>{{ item_children.seq_num}}</td>
-                <td>{{ item_children.item_group_id}}</td>
-                <td>{{ item_children.item_group_name }}</td>
+            <ng-container  *ngFor="let currentItem of item_group.children  index as indexChild" >
+              <tr>
+                <td>{{i + 1 +'.' + (indexChild + 1)}}</td>
+                <td>{{ currentItem.parent_item_group_id }}</td>
+                <td>{{ currentItem.item_group_id }}</td>
+                <td>{{ currentItem.item_group_name }}</td>
 
                 <td class="action-col" >
                   <div class="btn-group">
-                    <button title="" class="btn btn-xs btn-white btn-default"  (click)="openUpdateModal(item)">
+                    <button title="" class="btn btn-xs btn-white btn-default"  (click)="openUpdateModal(currentItem)">
                       <i class="ace-icon fa fa-edit"></i>
                     </button>
-                    <button title="" class="btn btn-xs btn-white btn-default" (click)="onDelete(item)">
+                    <button title="" class="btn btn-xs btn-white btn-default" (click)="onDelete(currentItem)">
                       <i class="ace-icon fa fa-trash"></i>
                     </button>
                   </div>
                 </td>
               </tr>
-            </ng-template> -->
+              <ng-container *ngIf="currentItem.children">
+                <ng-container *ngTemplateOutlet="recursiveTable; context:{ $implicit: currentItem.children }"></ng-container>
+              </ng-container>
+            </ng-container>
           </ng-template>
         </p-table>
         <!-- PAGE CONTENT ENDS -->
@@ -72,7 +77,7 @@
       <!-- /.col -->
     </div>
   </div><!-- /.page-content -->
-  <div *ngIf="showUpdateModal" id="createProductModal" class="modal fade" role="dialog">
+  <div *ngIf="showUpdateModal" id="createProductTypeModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg full-height-modal">
       <div class="modal-content">
         <div class="modal-header">
@@ -93,11 +98,11 @@
                 </div>
               </div>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-6" *ngIf="!isCreate">
                 <div class="form-group">
                   <label class="col-sm-4 control-label no-padding-right">ID sản phẩm(<span style="color: red;">*</span>)</label>
                   <div class="col-sm-8">
-                    <input type="text" placeholder="ID sản phẩm" formControlName="item_group_id"/>
+                    <input type="text" placeholder="ID sản phẩm" formControlName="item_group_id" disabled/>
                     <div *ngIf="submitted && f.item_group_id.errors" class="invalid-feedback">
                       <div *ngIf="f.item_group_id.errors.required">ID Sản Phẩm</div>
                     </div>
@@ -115,9 +120,6 @@
                   </div>
                 </div>
               </div>
-              
-              
-              
             </div>
           </div>
           <div class="modal-footer">

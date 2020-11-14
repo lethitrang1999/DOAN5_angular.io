@@ -52,7 +52,6 @@ namespace API.Controllers
         [HttpPost]
         public HoaDonModel UpdateHoaDon([FromBody] HoaDonModel model)
         {
-            model.ma_hoa_don = Guid.NewGuid().ToString();
             if (model.listjson_chitiet != null)
             {
                 foreach (var item in model.listjson_chitiet)
@@ -65,7 +64,6 @@ namespace API.Controllers
         [HttpPost]
         public HoaDonModel DeleteHoaDon([FromBody] HoaDonModel model)
         {
-            model.ma_hoa_don = Guid.NewGuid().ToString();
             if (model.listjson_chitiet != null)
             {
                 foreach (var item in model.listjson_chitiet)

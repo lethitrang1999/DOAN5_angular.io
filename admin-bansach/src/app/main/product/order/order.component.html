@@ -19,15 +19,15 @@
         <p-table selectionMode="single" [value]="hoa_dons" styleClass="p-datatable-gridlines">
           <ng-template pTemplate="header">
             <tr>
-              <th style="width: 70px; text-align: center;">STT</th>
-              <th style="width: 10%; text-align: left;">Họ Tên</th>
-              <th style="width: 170px; text-align: center;">Địa Chỉ</th>
-              <th style="width: 230px; text-align: left;">SDT</th>
-              <th style="width: 130px; text-align: left;">Email</th>
-              <th style="width: 120px; text-align: left;">Tác vụ</th>
+              <th style="width: 50px; text-align: center;">STT</th>
+              <th style="width: 20%; text-align: left;">Họ Tên</th>
+              <th style="width: 200px; text-align: center;">Địa Chỉ</th>
+              <th style="width: 120px; text-align: left;">SDT</th>
+              <th style="width: 200px; text-align: left;">Email</th>
+              <th style="width: 90px; text-align: left;">Tác vụ</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-hoa_don  let-i="rowIndex">
+          <ng-template pTemplate="body" let-hoa_don  let-i="rowIndex" >
             <tr>
               <td style="width: 70px; text-align: center;">{{ i + 1 }}</td>
               <td>{{ hoa_don.ho_ten }}</td>
@@ -56,7 +56,7 @@
     </div>
   </div>
   <!-- /.page-content -->
-   <div *ngIf="showUpdateModal" id="createProductModal" class="modal fade" role="dialog">
+   <div *ngIf="showUpdateModal" id="createOrderModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg full-height-modal">
       <div class="modal-content">
         <div class="modal-header">
@@ -68,60 +68,62 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="form-group">
-                <label class="col-sm-4 control-label no-padding-right">ID HOÁ ĐƠN(<span style="color: red;">*</span>)</label>
-                <div class="col-sm-8">
-                  <input type="text" placeholder="ID hoá đơn" formControlName="ma_hoa_don"/>
-                  <div *ngIf="submitted && f.ma_hoa_don.errors" class="invalid-feedback">
-                    <div *ngIf="f.ma_hoa_don.errors.required">ID HOÁ ĐƠN</div>
-                  </div>
-                </div>
-              </div>
-              </div>
-              
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label class="col-sm-4 control-label no-padding-right"> Họ Tên(<span style="color: red;">*</span>)</label>
+                  <label class="col-sm-4 control-label no-padding-right">Họ tên: (<span style="color: red;">*</span>)</label>
                   <div class="col-sm-8">
-                    <input type="text" placeholder="Họ Tên" formControlName="ho_ten"/>
+                    <input type="text" placeholder="Họ tên" formControlName="ho_ten"/>
                     <div *ngIf="submitted && f.ho_ten.errors" class="invalid-feedback">
-                      <div *ngIf="f.ho_ten.errors.required">Họ Tên</div>
+                      <div *ngIf="f.ho_ten.errors.required">Hãy nhập họ tên</div>
                     </div>
                   </div>
                 </div>
               </div>
-             
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label class="col-sm-4 control-label no-padding-right">Địa Chỉ(<span style="color: red;">*</span>)</label>
+                  <label class="col-sm-4 control-label no-padding-right">Địa Chỉ: (<span style="color: red;">*</span>)</label>
                   <div class="col-sm-8">
-                    <input type="number" placeholder="Địa Chỉ" formControlName="dia_chi"/>
+                    <input type="text" placeholder="Địa chỉ" formControlName="dia_chi"/>
                     <div *ngIf="submitted && f.dia_chi.errors" class="invalid-feedback">
-                      <div *ngIf="f.dia_chi.errors.required">Địa Chỉ</div>
+                      <div *ngIf="f.dia_chi.errors.required">Hãy nhập địa chỉ</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label class="col-sm-4 control-label no-padding-right">Số điện thoại: </label>
+                  <div class="col-sm-8">
+                    <input type="text" formControlName="sdt" placeholder="Số điện thoại" />
+                    <div *ngIf="submitted && f.sdt.errors" class="invalid-feedback">
+                      <div *ngIf="f.sdt.errors.required">Hãy nhập số điện thoại</div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label class="col-sm-4 control-label no-padding-right"> SDT</label>
+                  <label class="col-sm-4 control-label no-padding-right">Email: </label>
                   <div class="col-sm-8">
-                    <input type="text" formControlName="SDT" placeholder="SDT" />
-                    <div *ngIf="submitted && f.SDT.errors" class="invalid-feedback">
-                      <div *ngIf="f.SDT.errors.required">SDT</div>
+                    <input type="text" formControlName="email" placeholder="Email" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                      <div *ngIf="f.email.errors.required">Hãy nhập email</div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6">
+            </div>
+            <div class="row">
+              <div class="col-sm-6" *ngIf="!isCreate">
                 <div class="form-group">
-                  <label class="col-sm-4 control-label no-padding-right"> EMAIL</label>
-                  <div class="col-sm-8">
-                    <input type="text" formControlName="email" placeholder="EMAIL" />
-                    <div *ngIf="submitted && f.EMAIL.errors" class="invalid-feedback">
-                      <div *ngIf="f.email.errors.required">EMAIL</div>
-                    </div>
+                <label  class="col-sm-4 control-label no-padding-right">Mã hóa đơn: (<span style="color: red;">*</span>)</label>
+                <div class="col-sm-8">
+                  <input type="text" placeholder="Mã hóa đơn" formControlName="ma_hoa_don" disabled/>
+                  <div *ngIf="submitted && f.ma_hoa_don.errors" class="invalid-feedback">
+                    <div *ngIf="f.ma_hoa_don.errors.required">Hãy nhập mã hóa đơn</div>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>

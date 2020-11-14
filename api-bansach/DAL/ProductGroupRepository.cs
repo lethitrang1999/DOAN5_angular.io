@@ -65,7 +65,6 @@ namespace DAL
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_item_group_update",
                 "@item_group_id", model.item_group_id,
                 "@parent_item_group_id", model.parent_item_group_id,
-               
                 "@item_group_name", model.item_group_name,
                 "@seq_num", model.seq_num,
                 "@url", model.url);

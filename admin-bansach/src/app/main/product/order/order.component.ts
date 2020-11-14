@@ -85,9 +85,9 @@ public openUpdateModal(row): void {
   this.showUpdateModal = true;
   this.isCreate = false;
   setTimeout(() => {
-    ($('#createProductModal') as any).modal('toggle');
-    this._api.get('/api/HoaDon/get-by-id/' + row.item_id).takeUntil(this.unsubscribe).subscribe((res: any) => {
-      this.hoa_dons = res;
+    ($('#createOrderModal') as any).modal('toggle');
+    this._api.get('/api/HoaDon/get-by-id/' + row.ma_hoa_don).takeUntil(this.unsubscribe).subscribe((res: any) => {
+      this.hoa_don = res;
       console.log(this.hoa_don);
       this.formdata = this.fb.group({
         'ma_hoa_don': [this.hoa_don.ma_hoa_don, Validators.required],
@@ -95,13 +95,14 @@ public openUpdateModal(row): void {
         'dia_chi': [this.hoa_don.dia_chi, Validators.required],
         'sdt': [this.hoa_don.sdt, Validators.required],
         'email': [this.hoa_don.email, Validators.required],
-       
+        'listjson_chitiet': ['']
       }, {
         // validator: MustMatch('matkhau', 'nhaplaimatkhau')
       });
       this.doneSetupForm = true;
     });
   }, 700);
+
 }
 get f(): void {
   return this.formdata.controls;
@@ -121,14 +122,16 @@ onSubmit(value): void {
         ma_hoa_don: value.ma_hoa_don,
         ho_ten: value.ho_ten,
         dia_chi: value.dia_chi,
-        SDT:  value.sdt,
-        email: value.Email,
+        sdt:  value.sdt,
+        email: value.email,
         
       };
       this._api.post('/api/HoaDon/create-hoa-don', temp).takeUntil(this.unsubscribe).subscribe(res => {
+        console.log("save successfully");
         alert('Thêm thành công');
         this.search();
         this.closeModal();
+        this.Reset();
       });
     });
   } else {
@@ -139,8 +142,8 @@ onSubmit(value): void {
         ma_hoa_don: value.ma_hoa_don,
         ho_ten: value.ho_ten,
         dia_chi: value.dia_chi,
-        SDT:  value.sdt,
-        eMAIL: value.email,
+        sdt:  value.sdt,
+        email: value.email,
       };
       console.log('run in here');
       this._api.post('/api/hoadon/update-hoa-don', temp).takeUntil(this.unsubscribe).subscribe(res => {
@@ -160,14 +163,11 @@ onDelete(row): void {
 Reset(): void {
   this.hoa_don = null;
   this.formdata = this.fb.group({
-   
-    'ma_hoa_don': [this.hoa_don.ma_hoa_don, Validators.required],
-    'ho_ten': [this.hoa_don.ho_ten, Validators.required],
-    'dia_chi': [this.hoa_don.dia_chi, Validators.required],
-    'SDT': [this.hoa_don.SDT, Validators.required],
-    'EMAIL': [this.hoa_don.EMAIL, Validators.required],
-
- 
+    'ma_hoa_don': ['', Validators.required],
+    'ho_ten': ['', Validators.required],
+    'dia_chi': ['', Validators.required],
+    'sdt': ['', Validators.required],
+    'email': ['', Validators.required],
   });
 }
 createModal(): void {
@@ -176,20 +176,19 @@ createModal(): void {
   this.isCreate = true;
   this.hoa_don = null;
   setTimeout(() => {
-    ($('#createProductModal') as any).modal('toggle');
+    ($('#createOrderModal') as any).modal('toggle');
     this.formdata = this.fb.group({
-      'ma_hoa_don': [this.hoa_don.ma_hoa_don, Validators.required],
-      'ho_ten': [this.hoa_don.ho_ten, Validators.required],
-      'dia_chi': [this.hoa_don.dia_chi, Validators.required],
-      'SDT': [this.hoa_don.SDT, Validators.required],
-      'EMAIL': [this.hoa_don.EMAIL, Validators.required],
+      'ho_ten': ['', Validators.required],
+      'dia_chi': ['', Validators.required],
+      'sdt': ['', Validators.required],
+      'email': ['', Validators.required],
     });
   }, 700);
 
   this.doneSetupForm = true;
 }
  closeModal(): void {
-    ($('#createProductModal') as any).closest('.modal').modal('hide');
+    ($('#createOrderModal') as any).closest('.modal').modal('hide');
   }
 
 }

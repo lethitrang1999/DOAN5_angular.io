@@ -30,6 +30,7 @@ namespace API.Controllers
         [HttpPost]
         public ProductGroupModel CreateItemFroup([FromBody] ProductGroupModel model)
         {
+            model.item_group_id = Guid.NewGuid().ToString();
             _itemGroupBusiness.Create(model);
             return model;
         }

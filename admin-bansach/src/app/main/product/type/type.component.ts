@@ -38,16 +38,8 @@ export class TypeComponent extends BaseComponent implements OnInit {
     this.item = {};
     this.quantity = 1;
     this.product_groups = [];
+    this.product_group = [];
     this.totalRecords = 1;
-    this._route.params.subscribe(params => {
-      const id = params.id;
-      // this._api.get('/api/item/get-by-id/' + id).takeUntil(this.unsubscribe).subscribe(res => {
-      //   this.item = res;
-      //   setTimeout(() => {
-      //     this.loadScripts();
-      //   });
-      // });
-    });
     this.search();
 
   }
@@ -56,7 +48,13 @@ export class TypeComponent extends BaseComponent implements OnInit {
     this.page = 1;
     this.pageSize = 5;
     this._api.get('/api/itemGroup/get-menu').takeUntil(this.unsubscribe).subscribe(res => {
-      this.product_groups = res || [];
+      var response = Object.keys(res).map(function(index){
+        let respond = res[index];
+        // do something with person
+        return respond;
+    });
+      this.product_groups = response || [];
+      console.log("product_groups", res);
       this.totalRecords = Object.keys(res).length || 5;
       this.pageSize = 5;
     });
@@ -65,6 +63,7 @@ export class TypeComponent extends BaseComponent implements OnInit {
   loadPage(page): void {
     this._api.get('/api/itemGroup/get-menu').takeUntil(this.unsubscribe).subscribe(res => {
       this.product_groups = res || [];
+      console.log("product_groups", res);
       this.totalRecords = Object.keys(res).length || 5;
       this.pageSize = 5;
     });
@@ -91,20 +90,22 @@ export class TypeComponent extends BaseComponent implements OnInit {
   }
 
   public openUpdateModal(row): void {
+
+    console.log(typeof row);
     console.log(row);
     this.doneSetupForm = false;
     this.showUpdateModal = true;
     this.isCreate = false;
     setTimeout(() => {
-      ($('#createProductModal') as any).modal('toggle');
-      this._api.get('/api/itemGroup/get-by-id/' + row.item_id).takeUntil(this.unsubscribe).subscribe((res: any) => {
-        this.product_groups = res;
-        console.log(this.product_groups);
+      ($('#createProductTypeModal') as any).modal('toggle');
+      this._api.get('/api/itemGroup/get-by-id/' + row.item_group_id).takeUntil(this.unsubscribe).subscribe((res: any) => {
+        this.product_group = res;
+        console.log("product_group", this.product_group);
         this.formdata = this.fb.group({
-          'item_group_id': [this.product_groups.item_group_id, Validators.required],
-          'parent_item_group_id': [this.product_groups.parent_item_group_id, Validators.required],
-          'item_group_name': [this.product_groups.item_group_name, Validators.required],
-          
+          'item_group_id': [this.product_group.item_group_id || '', Validators.required],
+          'parent_item_group_id': [this.product_group.parent_item_group_id || '', Validators.required],
+          'item_group_name': [this.product_group.item_group_name || '', Validators.required],
+          'seq_num': [this.product_group.seq_num || '', Validators.required],
         }, {
           // validator: MustMatch('matkhau', 'nhaplaimatkhau')
         });
@@ -130,10 +131,9 @@ export class TypeComponent extends BaseComponent implements OnInit {
         let data_image = data == '' ? null : data;
         let temp = {
           item_group_id: value.item_group_id,
-          
           parent_item_group_id: value.parent_item_group_id,
           item_group_name: value.item_group_name,
-         
+          seq_num : value.seq_num
         };
         this._api.post('/api/itemGroup/create-item-group', temp).takeUntil(this.unsubscribe).subscribe(res => {
           alert('Thêm thành công');
@@ -145,18 +145,18 @@ export class TypeComponent extends BaseComponent implements OnInit {
       console.log('run in else');
       // this.getEncodeFromImage(this.file_image).subscribe((data: any): void => {
       //   let data_image = data == '' ? null : data;
-        let temp = {
-          item_group_id: value.item_group_id,
-         
-          parent_item_group_id: value.parent_item_group_id,
-          item_group_name: value.item_group_name,
-        };
-        console.log('run in here');
-        this._api.post('/api/itemGroup/update-item-group', temp).takeUntil(this.unsubscribe).subscribe(res => {
-          alert('Cập nhật thành công');
-          this.search();
-          this.closeModal();
-        });
+      let temp = {
+        item_group_id: value.item_group_id,
+        parent_item_group_id: value.parent_item_group_id,
+        item_group_name: value.item_group_name,
+        seq_num : value.seq_num
+      };
+      console.log('run in here');
+      this._api.post('/api/itemGroup/update-item-group', temp).takeUntil(this.unsubscribe).subscribe(res => {
+        alert('Cập nhật thành công');
+        this.search();
+        this.closeModal();
+      });
       // });
     }
   }
@@ -169,12 +169,12 @@ export class TypeComponent extends BaseComponent implements OnInit {
   }
 
   Reset(): void {
-    this.product_groups = null;
+    this.product_group = null;
     this.formdata = this.fb.group({
-      'item_group_id': [this.product_groups.item_group_id, Validators.required],
-      'parent_item_group_id': [this.product_groups.parent_item_group_id, Validators.required],
+      'item_group_id': ['', Validators.required],
+      'parent_item_group_id': ['', Validators.required],
       'item_group_name': ['', Validators.required],
-   
+      'seq_num' : ['', Validators.required]
     });
   }
 
@@ -182,22 +182,30 @@ export class TypeComponent extends BaseComponent implements OnInit {
     this.doneSetupForm = false;
     this.showUpdateModal = true;
     this.isCreate = true;
-    this.product_groups = null;
-    setTimeout(() => {
-      ($('#createProductModal') as any).modal('toggle');
-      this.formdata = this.fb.group({
-        'item_group_id': ['', Validators.required],
-        'parent_item_group_id': ['', Validators.required],
-        'item_group_name': ['', Validators.required],
-      
-      });
-    }, 700);
+    this.product_group = null;
+    // setTimeout(() => {
+    //   ($('#createProductTypeModal') as any).modal('toggle');
+    //   this.formdata = this.fb.group({
+    //     'item_group_id': ['', Validators.required],
+    //     'parent_item_group_id': ['', Validators.required],
+    //     'item_group_name': ['', Validators.required],
+    //     'seq_num' : ['', Validators.required]
+    //   });
+    // }, 700);
 
-    this.doneSetupForm = true;
+    // this.doneSetupForm = true;
   }
 
   closeModal(): void {
-    ($('#createProductModal') as any).closest('.modal').modal('hide');
+    ($('#createProductTypeModal') as any).closest('.modal').modal('hide');
+  }
+  goodEmptyCheck(value) : boolean {
+    if(value === null || value === undefined ) return true;
+    return Object.keys(value).length === 0
+      && value.constructor === Object; // 👈 constructor check
+  }
+  consoleJSONStringify(value) : string {
+    return JSON.stringify(value);
   }
 
 }
