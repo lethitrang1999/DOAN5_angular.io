@@ -48,12 +48,7 @@ export class TypeComponent extends BaseComponent implements OnInit {
     this.page = 1;
     this.pageSize = 5;
     this._api.get('/api/itemGroup/get-menu').takeUntil(this.unsubscribe).subscribe(res => {
-      var response = Object.keys(res).map(function(index){
-        let respond = res[index];
-        // do something with person
-        return respond;
-    });
-      this.product_groups = response || [];
+      this.product_groups = res || [];
       console.log("product_groups", res);
       this.totalRecords = Object.keys(res).length || 5;
       this.pageSize = 5;
@@ -103,9 +98,8 @@ export class TypeComponent extends BaseComponent implements OnInit {
         console.log("product_group", this.product_group);
         this.formdata = this.fb.group({
           'item_group_id': [this.product_group.item_group_id || '', Validators.required],
-          'parent_item_group_id': [this.product_group.parent_item_group_id || '', Validators.required],
+          'parent_item_group_id': [this.product_group.parent_item_group_id || ''],
           'item_group_name': [this.product_group.item_group_name || '', Validators.required],
-          'seq_num': [this.product_group.seq_num || '', Validators.required],
         }, {
           // validator: MustMatch('matkhau', 'nhaplaimatkhau')
         });
@@ -131,7 +125,7 @@ export class TypeComponent extends BaseComponent implements OnInit {
         let data_image = data == '' ? null : data;
         let temp = {
           item_group_id: value.item_group_id,
-          parent_item_group_id: value.parent_item_group_id,
+          parent_item_group_id: value.parent_item_group_id || '',
           item_group_name: value.item_group_name,
           seq_num : value.seq_num
         };
@@ -147,7 +141,7 @@ export class TypeComponent extends BaseComponent implements OnInit {
       //   let data_image = data == '' ? null : data;
       let temp = {
         item_group_id: value.item_group_id,
-        parent_item_group_id: value.parent_item_group_id,
+        parent_item_group_id: value.parent_item_group_id || '',
         item_group_name: value.item_group_name,
         seq_num : value.seq_num
       };
@@ -172,9 +166,8 @@ export class TypeComponent extends BaseComponent implements OnInit {
     this.product_group = null;
     this.formdata = this.fb.group({
       'item_group_id': ['', Validators.required],
-      'parent_item_group_id': ['', Validators.required],
+      'parent_item_group_id': [''],
       'item_group_name': ['', Validators.required],
-      'seq_num' : ['', Validators.required]
     });
   }
 

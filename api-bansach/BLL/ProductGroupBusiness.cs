@@ -18,7 +18,7 @@ namespace BLL
         public List<ProductGroupModel> GetData()
         {
             var allItemGroups = _res.GetData();
-            var lstParent = allItemGroups.Where(ds => ds.parent_item_group_id == null).OrderBy(s => s.seq_num).ToList();
+            var lstParent = allItemGroups.OrderBy(s => s.seq_num).ToList();
             foreach (var item in lstParent)
             {
                 item.children = GetHiearchyList(allItemGroups, item);

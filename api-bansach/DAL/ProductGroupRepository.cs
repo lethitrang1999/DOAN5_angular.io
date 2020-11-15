@@ -20,7 +20,7 @@ namespace DAL
             string msgError = "";
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_item_group_get_data");
+                System.Data.DataTable dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_item_group_get_data");
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 return dt.ConvertTo<ProductGroupModel>().ToList();
@@ -38,10 +38,7 @@ namespace DAL
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_item_group_create",
                  "@item_group_id", model.item_group_id,
                 "@parent_item_group_id", model.parent_item_group_id,
-
                 "@item_group_name", model.item_group_name,
-                "@seq_num", model.seq_num,
-                "@url", model.url
                 
                 
                 );
@@ -65,9 +62,7 @@ namespace DAL
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_item_group_update",
                 "@item_group_id", model.item_group_id,
                 "@parent_item_group_id", model.parent_item_group_id,
-                "@item_group_name", model.item_group_name,
-                "@seq_num", model.seq_num,
-                "@url", model.url);
+                "@item_group_name", model.item_group_name);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
