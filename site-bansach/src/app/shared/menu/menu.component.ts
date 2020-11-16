@@ -21,5 +21,13 @@ export class MenuComponent extends BaseComponent implements OnInit {
        this.total = res? res.length:0;
      }); 
   }
+  search(): void {
+    this._api.get('/api/itemgroup/get-menu').takeUntil(this.unsubscribe).subscribe(res => {
+      this.menus = res;
+    }); 
+   this._cart.items.subscribe((res) => {
+      this.total = res? res.length:0;
+    }); 
+  }
 
 }

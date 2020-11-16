@@ -87,6 +87,30 @@ namespace API.Controllers
             }
             return response;
         }
+        [Route("search-by-name")]
+        [HttpPost]
+        public ResponseModel SearchName([FromBody] Dictionary<string, object> formData)
+        {
+            ResponseModel response = new ResponseModel();
+            try
+            {
+                int page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                string item_group_id = "";
+                if (formData.Keys.Contains("item_name") && !string.IsNullOrEmpty(Convert.ToString(formData["item_name"]))) { item_group_id = Convert.ToString(formData["item_group_id"]); }
+                long total = 0;
+                var data = _itemBusiness.Search(page, pageSize, out total, item_group_id);
+                response.TotalItems = total;
+                response.Data = data;
+                response.Page = page;
+                response.PageSize = pageSize;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return response;
+        }
 
     }
 }

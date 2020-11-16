@@ -16,5 +16,6 @@ namespace DAL
         List<ProductModel> GetDataAll();
         List<ProductModel> GetDatakhuyenmai();
         List<ProductModel> Search(int pageIndex, int pageSize, out long total, string item_group_id);
+        List<ProductModel> SearchName(int pageIndex, int pageSize, out long total, string item_name);
     }
 }
